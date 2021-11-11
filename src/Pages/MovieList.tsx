@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import {supabase} from "../supabaseClient";
 import {MovieItem} from "../interfaces/movie-item";
 import {RealtimeSubscription} from "@supabase/realtime-js";
+import {Button, Card, CardActions, CardContent, List, Typography} from "@mui/material";
 
 export default function MovieList() {
     let subscription: RealtimeSubscription;
@@ -51,24 +52,43 @@ export default function MovieList() {
         <>
             <h1>Movie List</h1>
             <Link to={"/add-movie"}>
-                <button>Add</button>
+                <Button variant={"outlined"}>Add</Button>
             </Link>
-            <button onClick={fetchMovies}>Refresh</button>
+            <Button variant={"outlined"} onClick={fetchMovies}>Refresh</Button>
             <hr/>
-            {
-                listMovie.map((x) => (
-                    <div>
-                        <h1>{x.title}</h1>
-                        <h5>{x.created_at}</h5>
-                        <p>{x.description}</p>
-                        <button onClick={event => deleteMovie(x.id)} title={"Delete"}>X</button>
-                    </div>
-                ))
-            }
-            <div>
+            <List>
+                {
+                    listMovie.map((x) => (
+                        <Card className={"common-card"} sx={{minWidth: 275}} variant={"outlined"}>
+                            <CardContent>
+                                <Typography variant="h5" component="div">
+                                    {x.title}
+                                </Typography>
+                                <Typography sx={{mb: 1.5}} color="text.secondary">
+                                    {x.created_at}
+                                </Typography>
+                                <Typography variant="body2">
+                                    <p>
+                                        {x.description}
+                                    </p>
+                                </Typography>
+                            </CardContent>
+                            <CardActions>
+                                <Button size="small">Read More</Button>
+                                <Button variant={"outlined"} className={""}
+                                        onClick={event => deleteMovie(x.id)}>Delete</Button>
+                            </CardActions>
+                        </Card>
 
-            </div>
-
+                        // <div>
+                        //     <h1>{x.title}</h1>
+                        //     <h5>{x.created_at}</h5>
+                        //     <p>{x.description}</p>
+                        //     <Button variant={"outlined"} onClick={event => deleteMovie(x.id)} title={"Delete"}>X</Button>
+                        // </div>
+                    ))
+                }
+            </List>
         </>
     );
 }

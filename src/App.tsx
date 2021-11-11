@@ -5,11 +5,12 @@ import MovieList from "./Pages/MovieList";
 import {Home} from "./Pages/Home";
 import {MovieAdd} from "./Pages/MovieAdd";
 import MenuBar from "./Pages/partial/MenuBar";
+import {About} from "./About";
 
 function App() {
     return (
         <>
-            <div className="App">
+            <div className="App md:container">
                 <h1>Welcome to Movie</h1>
 
                 {/*<Routes>*/}
@@ -25,6 +26,7 @@ function App() {
                     <Route path={"/"} element={<Home/>}/>
                     <Route path={"/lists"} element={<MovieList/>}/>
                     <Route path={"/add-movie"} element={<MovieAdd/>}/>
+                    <Route path={"/about"} element={<About/>}/>
                     <Route
                         path="*"
                         element={
